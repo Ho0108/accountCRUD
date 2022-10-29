@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\account_info;
-use Illuminate\Support\Facades\DB;
+
 
 class AccountInfoController extends Controller
 {
@@ -18,6 +18,9 @@ class AccountInfoController extends Controller
         $accounts = account_info::orderBy('id','ASC')->paginate(5);
         return view('account.index')->with('accounts', $accounts);
     }
+        
+    
+
 
     /**
      * Show the form for creating a new resource.
@@ -46,16 +49,16 @@ class AccountInfoController extends Controller
         ]);
 
         // Create account
-        $post = new account_info();
-        $post->account = $request->input('account');
-        $post->name = $request->input('name');
-        $post->sex = $request->input('sex');
-        $post->birthday = $request->input('birthday');
-        $post->mail = $request->input('mail');
-        $post->remark = $request->input('remark');
-        $post->save();
+        $accounts = new account_info();
+        $accounts->account = $request->input('account');
+        $accounts->name = $request->input('name');
+        $accounts->sex = $request->input('sex');
+        $accounts->birthday = $request->input('birthday');
+        $accounts->mail = $request->input('mail');
+        $accounts->remark = $request->input('remark');
+        $accounts->save();
 
-        return redirect('/accounts')->with('success', 'Post Created');
+        return redirect('/accounts')->with('success', 'Account Created');
     }
 
     /**
@@ -94,17 +97,17 @@ class AccountInfoController extends Controller
             'account' => 'required'
         ]);
 
-        //Update Post
-        $post = account_info::find($id);
-        $post->account = $request->input('account');
-        $post->name = $request->input('name');
-        $post->sex = $request->input('sex');
-        $post->birthday = $request->input('birthday');
-        $post->mail = $request->input('mail');
-        $post->remark = $request->input('remark');
-        $post->save();
+        //Update account
+        $accounts = account_info::find($id);
+        $accounts->account = $request->input('account');
+        $accounts->name = $request->input('name');
+        $accounts->sex = $request->input('sex');
+        $accounts->birthday = $request->input('birthday');
+        $accounts->mail = $request->input('mail');
+        $accounts->remark = $request->input('remark');
+        $accounts->save();
 
-        return redirect('/accounts')->with('success', 'Post Updated');
+        return redirect('/accounts')->with('success', 'Account Updated');
     }
 
     /**
@@ -120,11 +123,25 @@ class AccountInfoController extends Controller
 
     public function remove(Request $request)
     {
+        // Remove account
         if($request->id) {
             account_info::destroy($request->id);
            }
    
-       }
+    }
+
+    public function search()
+    {
+        // Search account
+        $search_account = $_GET['query'];
+        $accounts = account_info::where('account', 'LIKE', '%'.$search_account.'%')->get();
+
+        return view('account.search', compact('accounts'));
+
+
+    }
+
+       
 
     
 }

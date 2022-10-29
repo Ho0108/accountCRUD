@@ -6,15 +6,18 @@
         <h1>Account List</h1>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAccountModal">
             Add Account
-        </button>
+          </button>
     </div>
 
-{{-- Accounts List --}}
+
+
+
+
     <div class="col-12">
         
         <figure class="text-end">
             <blockquote class="blockquote">
-              <p class="h6">第{{$accounts->currentPage()}}頁 共{{$accounts->count()}}筆資料</p>
+              <p class="h6">共{{$accounts->count()}}筆資料</p>
         </figure>
 
         <table class="table table-bordered table-hover">
@@ -38,20 +41,28 @@
                     <th>{{$account->id}}</th>
                     <th>{{$account->account}}</th>
                     <th>{{$account->name}}</th>
+
                     @if ($account->sex == '1')
                         <th>男</th>
                     @else 
                         <th>女</th>          
                     @endif
+
+
                     <th>{{date('Y年 m月 d日', strtotime($account->birthday))}}</th>
                     <th>{{$account->mail}}</th>
                     <th>{{$account->remark}}</th>
+
                     <th><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditModal{{$account->id}}">
                         Edit
                         </button></th>
                     <th><button class="btn btn-danger remove-from-cart delete" data-id="{{$account->id}}"><i class="fa fa-trash-o"></i>
                         Delete
                     </button></th>
+
+
+
+
 
 
 <!-- Edit Modal -->
@@ -107,6 +118,7 @@
         
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
           <div class="form-group">
             <input class="btn btn-primary" type="submit" name="creat_account" value="修改帳戶"> 
             @csrf
@@ -115,6 +127,8 @@
     </div>
     
     </form>
+
+
         </div>
       </div>
     </div>
@@ -126,11 +140,20 @@
                 @endforeach
 
             </tbody> 
-        
-    </table>    
+            
+
+    </table>
+    
     </div>
-    {{$accounts->links()}} 
+
+    {{-- {{$accounts->links()}}  --}}
+
+
+
 </div>
+
+
+
 
 
 <!-- Add Modal -->
@@ -189,6 +212,10 @@
     </div>
   </div>
 <!--END Add Modal -->
+
+
+
+
 
 
 @endsection

@@ -20,4 +20,6 @@ Route::resource('accounts', '\App\Http\Controllers\AccountInfoController');
 
 Route::delete('remove-from-cart', [AccountInfoController::class, 'remove']);
 
-Route::post('/search', [AccountInfoController::class, 'search']);
+Route::get('/search',  [AccountInfoController::class, 'search']);
+
+
